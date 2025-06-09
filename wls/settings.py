@@ -62,7 +62,7 @@ MIDDLEWARE = [
 
 CORS_ALLOWED_ORIGINS = [
     "https://odanforext.xyz",
-    "https://wlsdd.onrender.com/api/join/",
+    "https://wlsdd.onrender.com",
 ]
 
 ROOT_URLCONF = 'wls.urls'
