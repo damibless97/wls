@@ -14,3 +14,16 @@ def join_waitlist(request):
     user = WaitlistUser.objects.create(email=email, referred_by=referred_by)
     serializer = WaitlistUserSerializer(user)
     return Response(serializer.data)
+
+
+# list/views.py
+from django.http import JsonResponse
+from django.contrib.auth import get_user_model
+
+def create_superuser(request):
+    User = get_user_model()
+    if not User.objects.filter(username="admin").exists():
+        User.objects.create_superuser("admin", "odanforext@gmail.com", "Purposeforext@369")
+        return JsonResponse({"status": "created"})
+    return JsonResponse({"status": "already exists"})
+
