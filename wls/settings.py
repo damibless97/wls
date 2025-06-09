@@ -67,6 +67,10 @@ CORS_ALLOWED_ORIGINS = [
 
 ROOT_URLCONF = 'wls.urls'
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [],
+}
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
