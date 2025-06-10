@@ -54,9 +54,12 @@ def join_waitlist(request):
 
     return Response({'message': 'Successfully joined waitlist'})
 
+from django.http import JsonResponse
+from django.contrib.auth import get_user_model
 
 def create_superuser(request):
-    from django.contrib.auth.models import User
-    if not User.objects.filter(username='forext').exists():
-        User.objects.create_superuser('admin', 'odanforext@gmail.com', 'forext4ever')
-    return Response({'message': 'Superuser created if it did not exist'})
+    User = get_user_model()
+    if not User.objects.filter(username="forext").exists():
+        User.objects.create_superuser("forext", "odanforext@gmail.com", "Akin4forext")
+        return JsonResponse({"status": "created"})
+    return JsonResponse({"status": "already exists"})
