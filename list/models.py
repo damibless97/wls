@@ -22,7 +22,7 @@ class Referral(models.Model):
     date_referred = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.user.email if self.user else 'Unknown'} referred {self.referred_user.email if self.referred_user else 'Unknown'}"
+        return f"{self.referrer.email} referred {self.referred_email}"
 
 
 
