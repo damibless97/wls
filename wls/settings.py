@@ -66,6 +66,11 @@ CORS_ALLOWED_ORIGINS = [
     "https://wlsdd.onrender.com",
 ]
 
+CSRF_TRUSTED_ORIGINS = [
+    "https://odanforext.xyz",
+    "https://wlsdd.onrender.com",
+]
+
 ROOT_URLCONF = 'wls.urls'
 
 REST_FRAMEWORK = {
