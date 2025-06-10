@@ -56,7 +56,10 @@ def join_waitlist(request):
     return Response({'message': 'Successfully joined waitlist'})
 
 
+
+@csrf_exempt
 @api_view(['GET'])
+@permission_classes([AllowAny])
 def get_stats(request):
     # Calculate basic stats
     waitlist_members = WaitlistUser.objects.count()
