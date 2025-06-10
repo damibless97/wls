@@ -14,3 +14,12 @@ class WaitlistUser(models.Model):
 
     def __str__(self):
         return self.email
+
+
+class Referral(models.Model):
+    referrer = models.ForeignKey(WaitlistUser, on_delete=models.CASCADE, related_name='referrals')
+    referred_email = models.EmailField()
+    date_referred = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.referred_email} referred by {self.referrer.email}"
