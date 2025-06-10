@@ -1,10 +1,11 @@
 from rest_framework.response import Response
 from .models import WaitlistUser, Referral, Reward
-from .serializers import WaitlistUserSerializer
+from .serializers import WaitlistUserSerializer, StatsSerializer
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
-import traceback
+from django.db.models import Count, Sum
+import random  # For demo purposes - replace with real data
 
 @csrf_exempt
 @api_view(['POST'])
@@ -54,6 +55,37 @@ def join_waitlist(request):
 
     return Response({'message': 'Successfully joined waitlist'})
 
+
+@api_view(['GET'])
+def get_stats(request):
+    # Calculate basic stats
+    waitlist_members = WaitlistUser.objects.count()
+    total_rewards = Reward.objects.aggregate(
+        total=Sum('joined_reward') + Sum('referral_reward')
+    )['total'] or 0
+    total_invites = Referral.objects.count()
+    
+    # For demo - replace with your actual logic to determine waitlist status
+    is_waitlist_active = True  # Change this based on your business logic
+    
+    data = {
+        'is_waitlist_active': is_waitlist_active,
+        'waitlist_members': waitlist_members,
+        'total_rewards': total_rewards,
+        'total_invites': total_invites,
+    }
+    
+    if not is_waitlist_active:
+        # Add post-waitlist stats (replace with real data)
+        data.update({
+            'total_members': waitlist_members + random.randint(5000, 10000),
+            'countries': random.randint(30, 80),
+            'properties': random.randint(10, 50),
+        })
+    
+    serializer = StatsSerializer(data)
+    return Response(serializer.data)
+
 from django.http import JsonResponse
 from django.contrib.auth import get_user_model
 
@@ -63,3 +95,7 @@ def create_superuser(request):
         User.objects.create_superuser("forext", "odanforext@gmail.com", "Akin4forext")
         return JsonResponse({"status": "created"})
     return JsonResponse({"status": "already exists"})
+
+
+
+
