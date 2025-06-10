@@ -4,7 +4,7 @@ from .models import WaitlistUser, Referral, Reward
 # Register your models here.
 @admin.register(WaitlistUser)
 class WaitlistUserAdmin(admin.ModelAdmin):
-    list_display = ('email', 'date_joined')
+    list_display = ('email', 'joined')
 
 @admin.register(Referral)
 class ReferralAdmin(admin.ModelAdmin):
