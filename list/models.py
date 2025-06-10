@@ -23,3 +23,16 @@ class Referral(models.Model):
 
     def __str__(self):
         return f"{self.referred_email} referred by {self.referrer.email}"
+
+
+
+class Reward(models.Model):
+    user = models.OneToOneField(WaitlistUser, on_delete=models.CASCADE)
+    joined_reward = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    referral_reward = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+
+    def total_reward(self):
+        return self.joined_reward + self.referral_reward
+
+    def __str__(self):
+        return f"Rewards for {self.user.email}"
