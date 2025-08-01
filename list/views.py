@@ -47,7 +47,7 @@ def join_waitlist(request):
         return Response({'error': 'Only Gmail and Yahoo email addresses are allowed'}, status=400)
 
     if WaitlistUser.objects.filter(email=email).exists():
-        return Response({'message': 'Email already registered'}, status=400)
+        return Response({'message': 'Email already registered'}, status=401)
 
     user = WaitlistUser.objects.create(email=email)
     Reward.objects.create(user=user, joined_reward=5)  # Give 5 ODAN for joining
