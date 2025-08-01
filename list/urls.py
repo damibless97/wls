@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import join_waitlist, create_superuser, get_stats
+from .views import join_waitlist, get_stats
 
 urlpatterns = [
     path('join/', join_waitlist),
