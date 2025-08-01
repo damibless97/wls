@@ -44,10 +44,10 @@ def join_waitlist(request):
     allowed_domains = ['gmail.com', 'yahoo.com']
     domain_match = re.match(r'.+@(.+)$', email)
     if not domain_match or domain_match.group(1).lower() not in allowed_domains:
-        return Response({'error': 'Only Gmail and Yahoo email addresses are allowed'}, status=400)
+        return Response({'error': 'Only Gmail and Yahoo email addresses are allowed'}, status=401)
 
     if WaitlistUser.objects.filter(email=email).exists():
-        return Response({'message': 'Email already registered'}, status=401)
+        return Response({'error': 'Email already registered'}, status=402)
 
     user = WaitlistUser.objects.create(email=email)
     Reward.objects.create(user=user, joined_reward=5)  # Give 5 ODAN for joining
