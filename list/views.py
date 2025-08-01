@@ -135,15 +135,7 @@ def get_stats(request):
     
     return Response(data)
 
-from django.http import JsonResponse
-from django.contrib.auth import get_user_model
 
-def create_superuser(request):
-    User = get_user_model()
-    if not User.objects.filter(username="forext").exists():
-        User.objects.create_superuser("forext", "odanforext@gmail.com", "Akin4forext")
-        return JsonResponse({"status": "created"})
-    return JsonResponse({"status": "already exists"})
 
 
 
